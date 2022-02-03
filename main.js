@@ -68,23 +68,17 @@ const cubeFactory = () => ({
     newFace[0] = this.faces[n][0]; // 0 = side of face
     newFace[5] = this.faces[n][5]; // 5 = center piece of face
     if (clockwise) {
-      newFace[1] = this.faces[n][7];
-      newFace[2] = this.faces[n][4];
-      newFace[3] = this.faces[n][1];
-      newFace[4] = this.faces[n][8];
-      newFace[6] = this.faces[n][2];
-      newFace[7] = this.faces[n][9];
-      newFace[8] = this.faces[n][6];
-      newFace[9] = this.faces[n][3];
+      newFace = [this.faces[n][0]].concat(
+        this.getCol(n, 0, 1),
+        this.getCol(n, 1, 1),
+        this.getCol(n, 2, 1)
+      );
     } else {
-      newFace[1] = this.faces[n][3];
-      newFace[2] = this.faces[n][6];
-      newFace[3] = this.faces[n][9];
-      newFace[4] = this.faces[n][2];
-      newFace[6] = this.faces[n][8];
-      newFace[7] = this.faces[n][1];
-      newFace[8] = this.faces[n][4];
-      newFace[9] = this.faces[n][7];
+      newFace = [this.faces[n][0]].concat(
+        this.getCol(n, 2),
+        this.getCol(n, 1),
+        this.getCol(n, 0)
+      );
     }
     this.faces[n] = newFace;
   },
@@ -94,5 +88,6 @@ let cube = cubeFactory();
 
 cube.scramble();
 console.log(cube.faces);
-//cube.turnFace(0);
-console.log(cube.getCol(5, 0, 1));
+cube.turnFace(5, 0);
+console.log(cube.faces);
+//console.log(cube.getCol(5, 0, 1));
