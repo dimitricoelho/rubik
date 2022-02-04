@@ -76,8 +76,6 @@ const cubeFactory = () => ({
   turnFace(n, clockwise = true) {
     // rotate face
     let newFace = [];
-    newFace[0] = this.faces[n][0]; // 0 = side of face
-    newFace[5] = this.faces[n][5]; // 5 = center piece of face
     if (clockwise) {
       newFace = [this.faces[n][0]].concat(
         this.getCol(n, 0, 1),
@@ -104,7 +102,7 @@ let cube = cubeFactory();
 
 cube.scramble();
 console.log(cube.faces);
-//cube.turnFace(5, 0);
+cube.turnFace(5);
 //cube.setCol(5, 2, ["@", "@", "@"]);
-//console.log(cube.faces);
+console.log(cube.faces);
 //console.log(cube.getCol(5, 0, 1));
