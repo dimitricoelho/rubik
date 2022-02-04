@@ -168,6 +168,21 @@ const cubeFactory = () => ({
           this.setCol(0, 2, seq);
         }
         break;
+      case 5:
+        if (clockwise) {
+          seq = this.getRow(1, 0, 1);
+          this.setRow(1, 0, this.getCol(3, 2));
+          this.setCol(3, 2, this.getRow(2, 2, 1));
+          this.setRow(2, 2, this.getCol(4, 0));
+          this.setCol(4, 0, seq);
+        } else {
+          seq = this.getRow(1, 0);
+          this.setRow(1, 0, this.getCol(4, 0, 1));
+          this.setCol(4, 0, this.getRow(2, 2));
+          this.setRow(2, 2, this.getCol(3, 2, 1));
+          this.setCol(3, 2, seq);
+        }
+        break;
     }
   },
 });
@@ -177,9 +192,9 @@ let cube = cubeFactory();
 cube.scramble();
 console.log(cube.faces);
 console.log("--------------cw------------------");
-cube.turnFace(4, 1);
+cube.turnFace(5, 1);
 console.log(cube.faces);
 console.log("--------------ccw-----------------");
-cube.turnFace(4, 0);
-cube.turnFace(4, 0);
+cube.turnFace(5, 0);
+cube.turnFace(5, 0);
 console.log(cube.faces);
