@@ -73,28 +73,42 @@ const cubeFactory = () => ({
     this.faces[face][col + 4] = seq[1];
     this.faces[face][col + 7] = seq[2];
   },
-  turnFace(n, clockwise = true) {
+  turnFace(face, clockwise = true) {
     // rotate face
     let newFace = [];
     if (clockwise) {
-      newFace = [this.faces[n][0]].concat(
-        this.getCol(n, 0, 1),
-        this.getCol(n, 1, 1),
-        this.getCol(n, 2, 1)
+      newFace = [this.faces[face][0]].concat(
+        this.getCol(face, 0, 1),
+        this.getCol(face, 1, 1),
+        this.getCol(face, 2, 1)
       );
     } else {
-      newFace = [this.faces[n][0]].concat(
-        this.getCol(n, 2),
-        this.getCol(n, 1),
-        this.getCol(n, 0)
+      newFace = [this.faces[face][0]].concat(
+        this.getCol(face, 2),
+        this.getCol(face, 1),
+        this.getCol(face, 0)
       );
     }
-    this.faces[n] = newFace;
+    this.faces[face] = newFace;
     // change edges connected to face
-    // switch (this.faces[n][0]) {
-    //   case 0:
-    //     let seq = this.getCol(2, 2, 1);
-    // }
+    let seq = [];
+    switch (this.faces[face][0]) {
+      case 0:
+        if (clockwise) {
+          seq = this.getRow(1, 2);
+          this.setRow(1, 2, this.getCol(3, 2, 1));
+          this.setCol(3, 2, this.getRow(2, 0));
+          this.setRow(2, 0, this.getCol(4, 0, 1));
+          this.setCol(4, 0, seq);
+        } else {
+          seq = this.getRow(1, 2, 1);
+          this.setRow(1, 2, this.getCol(4, 0));
+          this.setCol(4, 0, this.getRow(2, 0, 1));
+          this.setRow(2, 0, this.getCol(3, 2));
+          this.setCol(3, 2, seq);
+        }
+        break;
+    }
   },
 });
 
@@ -102,7 +116,5 @@ let cube = cubeFactory();
 
 cube.scramble();
 console.log(cube.faces);
-cube.turnFace(5);
-//cube.setCol(5, 2, ["@", "@", "@"]);
+cube.turnFace(0, 0);
 console.log(cube.faces);
-//console.log(cube.getCol(5, 0, 1));
