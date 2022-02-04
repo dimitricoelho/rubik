@@ -63,7 +63,18 @@ const cubeFactory = () => ({
     if (reverse) faceCol.reverse();
     return faceCol;
   },
+  setRow(face, row, seq) {
+    this.faces[face][row * 3 + 1] = seq[0];
+    this.faces[face][row * 3 + 2] = seq[1];
+    this.faces[face][row * 3 + 3] = seq[2];
+  },
+  setCol(face, col, seq) {
+    this.faces[face][col + 1] = seq[0];
+    this.faces[face][col + 4] = seq[1];
+    this.faces[face][col + 7] = seq[2];
+  },
   turnFace(n, clockwise = true) {
+    // rotate face
     let newFace = [];
     newFace[0] = this.faces[n][0]; // 0 = side of face
     newFace[5] = this.faces[n][5]; // 5 = center piece of face
@@ -81,6 +92,11 @@ const cubeFactory = () => ({
       );
     }
     this.faces[n] = newFace;
+    // change edges connected to face
+    // switch (this.faces[n][0]) {
+    //   case 0:
+    //     let seq = this.getCol(2, 2, 1);
+    // }
   },
 });
 
@@ -88,6 +104,7 @@ let cube = cubeFactory();
 
 cube.scramble();
 console.log(cube.faces);
-cube.turnFace(5, 0);
-console.log(cube.faces);
+//cube.turnFace(5, 0);
+//cube.setCol(5, 2, ["@", "@", "@"]);
+//console.log(cube.faces);
 //console.log(cube.getCol(5, 0, 1));
