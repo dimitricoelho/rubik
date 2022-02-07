@@ -1,4 +1,4 @@
-# Rubiks Cube factory
+# Rubiks Cube object factory
 
 Methods to:
 
